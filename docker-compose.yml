@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  app:
+    container_name: nestjs_app
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+    - DATABASE_URL=postgresql://vvkon13:w2345qQ@db:5432/familydatabase
+    depends_on:
+      - db
+
+  db:
+    container_name: postgres_db
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=vvkon13
+      - POSTGRES_PASSWORD=w2345qQ
+      - POSTGRES_DB=familydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
